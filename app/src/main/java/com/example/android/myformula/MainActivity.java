@@ -1,5 +1,6 @@
 package com.example.android.myformula;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Formula> formulaList = new ArrayList<Formula>();
+    private ArrayList<Formula> formulaList = new ArrayList<>();
     private ListView listView;
     private FormulaListAdapter adapter;
 
@@ -54,13 +55,20 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                openAdd();
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    public void openAdd() {
+        Intent intent = new Intent(this, AddFormulaActivity.class);
+        startActivity(intent);
     }
 }
