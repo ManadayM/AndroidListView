@@ -49,7 +49,7 @@ public class FormulaListAdapter extends BaseAdapter {
 
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.formula_title_list_item, null);
+            convertView = inflater.inflate(R.layout.formula_list_item, null);
             mViewHolder = new ViewHolder(convertView);
             convertView.setTag(mViewHolder);
         }else{

@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">My Formula</string>
-    <string name="title_activity_add_formula">Add Formula</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="activity_add_formula">Add Formula</string>
 
     <string name="action_add">Add Formula</string>
     <string name="action_settings">Settings</string>
-
+    <string name="action_discard_changes">Discard changes</string>
 </resources>
