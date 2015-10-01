@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">My Formula</string>
-    <string name="activity_add_formula">Add Formula</string>
+    <string name="activity_add_formula">New Formula</string>
 
-    <string name="action_add">Add Formula</string>
+    <string name="action_add">New Formula</string>
     <string name="action_settings">Settings</string>
     <string name="action_discard_changes">Discard changes</string>
+
+    <string name="formula_title">Title</string>
+    <string name="formula_expression">Formula</string>
+    <string name="formula_description">Description</string>
 </resources>
