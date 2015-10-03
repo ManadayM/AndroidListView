@@ -8,9 +8,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.android.myformula.adapter.FormulaListAdapter;
+import com.example.android.myformula.data.FormulaDbHelper;
 import com.example.android.myformula.model.Formula;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * http://stackoverflow.com/questions/11945563/how-listviews-recycling-mechanism-works
@@ -21,22 +23,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Formula> formulaList = new ArrayList<>();
+    private List<Formula> formulaList = new ArrayList<>();
     private ListView listView;
     private FormulaListAdapter adapter;
-
-    private void populateList() {
-
-        for (int i = 0; i < 20; i++)
-            formulaList.add(new Formula("Formula - " + (i + 1), "Formula brief description will go here.."));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        populateList();
+        FormulaDbHelper dbHelper = new FormulaDbHelper(this);
+        formulaList = dbHelper.getAllFormulas();
 
         listView = (ListView) findViewById(R.id.listview);
         adapter = new FormulaListAdapter(this, formulaList);

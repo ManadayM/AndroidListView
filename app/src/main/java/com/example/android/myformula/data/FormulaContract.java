@@ -8,6 +8,8 @@ public class FormulaContract {
 
         public static final String TABLE_NAME = "formula";
 
+        public static final String COLUMN_FORMULA_ID = "_id";
+
         public static final String COLUMN_FORMULA_TITLE = "title";
 
         public static final String COLUMN_FORMULA_DESC = "description";

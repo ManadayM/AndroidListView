@@ -11,17 +11,15 @@ import com.example.android.myformula.R;
 import com.example.android.myformula.model.Formula;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by manaday.mavani on 11/09/15.
- */
 public class FormulaListAdapter extends BaseAdapter {
 
-    private ArrayList<Formula> formulaList = new ArrayList<Formula>();
+    private List<Formula> formulaList = new ArrayList<>();
     private LayoutInflater inflater;
     private Context context;
 
-    public FormulaListAdapter(Context context, ArrayList<Formula> formulaList) {
+    public FormulaListAdapter(Context context, List<Formula> formulaList) {
         this.formulaList = formulaList;
         this.context = context;
         inflater = LayoutInflater.from(context);
