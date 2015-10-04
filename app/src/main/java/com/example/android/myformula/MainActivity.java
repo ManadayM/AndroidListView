@@ -24,6 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    FormulaDbHelper dbHelper = new FormulaDbHelper(this);
     private List<Formula> formulaList = new ArrayList<>();
     private ListView listView;
     private FormulaListAdapter adapter;
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FormulaDbHelper dbHelper = new FormulaDbHelper(this);
         formulaList = dbHelper.getAllFormulas();
 
         listView = (ListView) findViewById(R.id.listview);
@@ -46,15 +46,28 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("MyFormula", "onResume called");
         adapter.notifyDataSetChanged();
+        //formulaList = dbHelper.getAllFormulas();
         Log.d("MyFormula", "List count: " + Integer.toString(formulaList.size()));
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
         Log.d("MyFormula", "onRestart called");
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == 1){
+
+            if(resultCode == RESULT_OK){
+                Log.d("MyFormula", "onActivityResult_RESULT_OK called");
+                formulaList = dbHelper.getAllFormulas();
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,5 +96,6 @@ public class MainActivity extends AppCompatActivity {
     public void openAdd() {
         Intent intent = new Intent(this, AddFormulaActivity.class);
         startActivity(intent);
+        //startActivityForResult(intent, 1);
     }
 }

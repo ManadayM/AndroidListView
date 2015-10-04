@@ -1,6 +1,8 @@
 package com.example.android.myformula;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -21,6 +23,8 @@ public class AddFormulaActivity extends AppCompatActivity {
 
         public void run() {
             try {
+                //Intent returnIntent = new Intent();
+                //setResult(RESULT_OK);
                 Thread.sleep(1500);
                 finish();
 
