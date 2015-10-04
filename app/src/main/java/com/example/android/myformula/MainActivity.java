@@ -3,6 +3,7 @@ package com.example.android.myformula;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -38,6 +39,21 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listview);
         adapter = new FormulaListAdapter(this, formulaList);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("MyFormula", "onResume called");
+        adapter.notifyDataSetChanged();
+        Log.d("MyFormula", "List count: " + Integer.toString(formulaList.size()));
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        adapter.notifyDataSetChanged();
+        Log.d("MyFormula", "onRestart called");
     }
 
     @Override

@@ -50,7 +50,7 @@ public class FormulaListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.formula_list_item, null);
             mViewHolder = new ViewHolder(convertView);
             convertView.setTag(mViewHolder);
-        }else{
+        } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
 
@@ -58,7 +58,6 @@ public class FormulaListAdapter extends BaseAdapter {
 
         mViewHolder.title.setText(formula.getTitle());
         mViewHolder.description.setText(formula.getDescription());
-
 
         return convertView;
     }

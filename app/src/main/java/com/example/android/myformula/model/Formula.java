@@ -8,12 +8,8 @@ public class Formula {
     private String description;
 
     public Formula() {
-    }
 
-//    public Formula(String title, String expression) {
-//        this.title = title;
-//        this.expression = expression;
-//    }
+    }
 
     public Formula(int id, String title, String expression, String description) {
         this.id = id;

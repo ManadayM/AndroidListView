@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.android.myformula.data.FormulaContract.FormulaEntry;
 import com.example.android.myformula.model.Formula;
@@ -46,19 +47,23 @@ public class FormulaDbHelper extends SQLiteOpenHelper {
 
     }
 
-    public void addFormula(Formula formula) {
+    public boolean addFormula(Formula formula) {
 
         SQLiteDatabase db = this.getWritableDatabase();
+        long result;
 
         ContentValues values = new ContentValues();
         values.put(FormulaEntry.COLUMN_FORMULA_TITLE, formula.getTitle());
         values.put(FormulaEntry.COLUMN_FORMULA_EXPRESSION, formula.getExpression());
         values.put(FormulaEntry.COLUMN_FORMULA_DESC, formula.getDescription());
 
-        db.insert(FormulaEntry.TABLE_NAME, null, values);
+        // Stores formula entry and returns row ID or -1 if error occurred
+        result = db.insert(FormulaEntry.TABLE_NAME, null, values);
 
         values.clear();
         db.close();
+
+        return (result != -1);
     }
 
     public Formula getFormula(int id) {
@@ -102,7 +107,7 @@ public class FormulaDbHelper extends SQLiteOpenHelper {
                 formula.setId(cursor.getInt(cursor.getColumnIndex(FormulaEntry.COLUMN_FORMULA_ID)));
                 formula.setTitle(cursor.getString(cursor.getColumnIndex(FormulaEntry.COLUMN_FORMULA_TITLE)));
                 formula.setExpression(cursor.getString(cursor.getColumnIndex(FormulaEntry.COLUMN_FORMULA_EXPRESSION)));
-                formula.setExpression(cursor.getString(cursor.getColumnIndex(FormulaEntry.COLUMN_FORMULA_DESC)));
+                formula.setDescription(cursor.getString(cursor.getColumnIndex(FormulaEntry.COLUMN_FORMULA_DESC)));
 
                 formulaList.add(formula);
 
