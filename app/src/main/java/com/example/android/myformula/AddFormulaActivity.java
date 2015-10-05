@@ -1,31 +1,32 @@
 package com.example.android.myformula;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.android.myformula.data.FormulaDbHelper;
 import com.example.android.myformula.model.Formula;
 
+//TODO: "/[+-\/*(){}^%!]/"
+
 public class AddFormulaActivity extends AppCompatActivity {
 
-    //private LinearLayout addFormulaLayout;
+    boolean isStoredSuccessfully;
 
     Thread thread = new Thread() {
 
         public void run() {
             try {
-                //Intent returnIntent = new Intent();
-                //setResult(RESULT_OK);
-                Thread.sleep(1500);
+
+                // Signal parent activity about success/failure of db operation
+                setResult(isStoredSuccessfully ? RESULT_OK : RESULT_CANCELED);
+
+                // close this activity
                 finish();
 
             } catch (Exception e) {
@@ -38,8 +39,6 @@ public class AddFormulaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_formula);
-
-        //addFormulaLayout = (LinearLayout) findViewById(R.id.layout_add_formula);
     }
 
     @Override
@@ -54,12 +53,9 @@ public class AddFormulaActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
     }
 
-
     void saveFormula() {
 
         hideSoftKeyboard();
-
-        boolean isStoredSuccessfully;
 
         EditText mTitle = (EditText) findViewById(R.id.title_text);
         EditText mExpression = (EditText) findViewById(R.id.formula_text);
@@ -76,7 +72,7 @@ public class AddFormulaActivity extends AppCompatActivity {
         //Snackbar snackbar = Snackbar.make(addFormulaLayout, isStoredSuccessfully ? "Stored successfully" : "Something went wrong", Snackbar.LENGTH_SHORT);
         //snackbar.show();
 
-        Toast toast = Toast.makeText(this, isStoredSuccessfully ? "Stored successfully" : "Something went wrong", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(this, isStoredSuccessfully ? "Stored successfully" : "Something went wrong", Toast.LENGTH_SHORT);
         toast.show();
 
         thread.start();

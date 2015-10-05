@@ -24,19 +24,20 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    FormulaDbHelper dbHelper = new FormulaDbHelper(this);
+    private FormulaDbHelper dbHelper = new FormulaDbHelper(this);
     private List<Formula> formulaList = new ArrayList<>();
-    private ListView listView;
     private FormulaListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("MyFormula", "onCreate called");
+
         setContentView(R.layout.activity_main);
 
-        formulaList = dbHelper.getAllFormulas();
+        ListView listView = (ListView) findViewById(R.id.listview);
 
-        listView = (ListView) findViewById(R.id.listview);
+        formulaList = dbHelper.getAllFormulas();
         adapter = new FormulaListAdapter(this, formulaList);
         listView.setAdapter(adapter);
     }
@@ -45,29 +46,34 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d("MyFormula", "onResume called");
+
+        /*formulaList.clear();
+        formulaList.addAll(dbHelper.getAllFormulas());
+
         adapter.notifyDataSetChanged();
-        //formulaList = dbHelper.getAllFormulas();
-        Log.d("MyFormula", "List count: " + Integer.toString(formulaList.size()));
+
+        Log.d("MyFormula", "List count: " + Integer.toString(formulaList.size()));*/
     }
 
     @Override
-    public void onRestart() {
-        super.onRestart();
-        //adapter.notifyDataSetChanged();
-        Log.d("MyFormula", "onRestart called");
-    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == 1){
+        if (requestCode == 1) {
 
-            if(resultCode == RESULT_OK){
-                Log.d("MyFormula", "onActivityResult_RESULT_OK called");
-                formulaList = dbHelper.getAllFormulas();
+            if (resultCode == RESULT_OK) {
+                formulaList.clear();
+                formulaList.addAll(dbHelper.getAllFormulas());
+
                 adapter.notifyDataSetChanged();
+
+                Log.d("MyFormula", "Formula stored successfully. Total count: " + Integer.toString(formulaList.size()));
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.e("MyFormula", "Could not store formula");
             }
         }
-    }*/
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openAdd() {
         Intent intent = new Intent(this, AddFormulaActivity.class);
-        startActivity(intent);
-        //startActivityForResult(intent, 1);
+        //startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 }
