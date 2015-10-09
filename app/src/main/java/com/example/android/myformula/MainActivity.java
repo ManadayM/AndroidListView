@@ -43,19 +43,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("MyFormula", "onResume called");
-
-        /*formulaList.clear();
-        formulaList.addAll(dbHelper.getAllFormulas());
-
-        adapter.notifyDataSetChanged();
-
-        Log.d("MyFormula", "List count: " + Integer.toString(formulaList.size()));*/
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -72,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MyFormula", "Could not store formula");
             }
         }
-
     }
 
     @Override
@@ -92,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_add:
                 openAdd();
                 return true;
+
             case R.id.action_settings:
                 return true;
             default:

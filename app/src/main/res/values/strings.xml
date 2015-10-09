@@ -10,4 +10,7 @@
     <string name="formula_title">Title</string>
     <string name="formula_expression">Formula</string>
     <string name="formula_description">Description</string>
+
+    <string name="error.message.formula_title">Title required</string>
+    <string name="error.message.formula_expression">Formula required</string>
 </resources>

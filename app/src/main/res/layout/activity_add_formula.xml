@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/formula_title"
+            android:inputType="textCapWords"
             android:singleLine="true"
             android:textSize="20sp" />
 
@@ -41,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/formula_expression"
+            android:inputType="text"
             android:textSize="20sp" />
 
     </android.support.design.widget.TextInputLayout>
@@ -62,6 +64,8 @@
             android:layout_height="match_parent"
             android:gravity="top"
             android:hint="@string/formula_description"
+            android:imeOptions="actionDone"
+            android:inputType="textShortMessage|textCapSentences|textMultiLine"
             android:textSize="20sp" />
 
     </android.support.design.widget.TextInputLayout>
