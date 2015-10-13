@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.myformula.adapter.FormulaListAdapter;
@@ -15,31 +17,52 @@ import com.example.android.myformula.model.Formula;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * http://stackoverflow.com/questions/11945563/how-listviews-recycling-mechanism-works
- * http://stackoverflow.com/questions/19469073/how-do-you-efficiently-load-bitmaps-from-drawable-folder-into-a-listview/19469076#19469076
- * http://www.pcsalt.com/android/listview-using-baseadapter-android/
- * http://www.androidhive.info/2014/07/android-custom-listview-with-image-and-text-using-volley/
- */
-
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TITLE_EXTRA = "com.example.android.myformula.TITLE";
+    public static final String EXPRESSION_EXTRA = "com.example.android.myformula.EXPRESSION";
     private FormulaDbHelper dbHelper = new FormulaDbHelper(this);
     private List<Formula> formulaList = new ArrayList<>();
     private FormulaListAdapter adapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("MyFormula", "onCreate called");
-
-        setContentView(R.layout.activity_main);
-
+    private void loadData() {
         ListView listView = (ListView) findViewById(R.id.listview);
 
         formulaList = dbHelper.getAllFormulas();
         adapter = new FormulaListAdapter(this, formulaList);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> list, View view, int position, long rowId) {
+
+                Formula f = (Formula) list.getItemAtPosition(position);
+
+                Intent intent = new Intent(MainActivity.this, CalculateActivity.class);
+                intent.putExtra(TITLE_EXTRA, f.getTitle());
+                intent.putExtra(EXPRESSION_EXTRA, f.getExpression());
+
+                Log.d("MyFormula", "Formula '" + f.getTitle() + "' selected");
+
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void openAdd() {
+        Intent intent = new Intent(this, AddFormulaActivity.class);
+        //startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        loadData();
     }
 
     @Override
@@ -84,11 +107,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void openAdd() {
-        Intent intent = new Intent(this, AddFormulaActivity.class);
-        //startActivity(intent);
-        startActivityForResult(intent, 1);
     }
 }

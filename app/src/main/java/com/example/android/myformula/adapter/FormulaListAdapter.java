@@ -70,7 +70,5 @@ public class FormulaListAdapter extends BaseAdapter {
             title = (TextView) item.findViewById(R.id.title_text);
             description = (TextView) item.findViewById(R.id.brief_description_text);
         }
-
     }
-
 }

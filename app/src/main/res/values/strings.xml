@@ -13,4 +13,5 @@
 
     <string name="error.message.formula_title">Title required</string>
     <string name="error.message.formula_expression">Formula required</string>
+    <string name="title_activity_calculate">CalculateActivity</string>
 </resources>
